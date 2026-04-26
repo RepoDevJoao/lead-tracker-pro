@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FluentFlow — Fale inglês em 90 dias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0f;
+      --surface:   #13131a;
+      --border:    #1e1e2e;
+      --accent:    #c8f04a;
+      --accent2:   #4af0c8;
+      --text:      #e8e8f0;
+      --muted:     #7070a0;
+      --font-head: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: rgba(10,10,15,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      color: var(--accent);
+      letter-spacing: -.01em;
+    }
+    .logo span { color: var(--accent2); font-style: italic; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 7rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,240,74,.12) 0%, transparent 70%);
+      top: 10%; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(74,240,200,.08) 0%, transparent 70%);
+      bottom: 5%; right: 5%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 760px;
+      text-align: center;
+      position: relative;
+      animation: fadeUp .8s ease both;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(200,240,74,.1);
+      border: 1px solid rgba(200,240,74,.25);
+      color: var(--accent);
+      font-size: .8rem; font-weight: 600;
+      padding: .35rem .9rem;
+      border-radius: 999px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .badge::before { content: "●"; font-size: .6rem; animation: pulse 2s infinite; }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      margin-bottom: 1.4rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    /* ── FORM ── */
+    .form-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 480px;
+      margin: 0 auto;
+      animation: fadeUp .9s .15s ease both;
+    }
+    .form-wrap h3 {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      margin-bottom: .4rem;
+    }
+    .form-wrap p {
+      color: var(--muted);
+      font-size: .875rem;
+      margin-bottom: 1.4rem;
+    }
+    .form-row { display: flex; flex-direction: column; gap: .75rem; }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: .95rem;
+      padding: .75rem 1rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    input::placeholder { color: var(--muted); }
+    input:focus { border-color: var(--accent); }
+
+    .btn-cta {
+      width: 100%;
+      background: var(--accent);
+      color: #0a0a0f;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: .9rem 1.5rem;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s, background .2s;
+      margin-top: .25rem;
+    }
+    .btn-cta:hover {
+      background: #d4f55e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,240,74,.3);
+    }
+    .btn-cta:active { transform: translateY(0); }
+
+    .form-note {
+      text-align: center;
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: .9rem;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .success-msg .check {
+      font-size: 2.5rem;
+      margin-bottom: .75rem;
+      animation: popIn .4s ease;
+    }
+    .success-msg h4 {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    .success-msg p { color: var(--muted); font-size: .9rem; }
+
+    /* ── SOCIAL PROOF ── */
+    .proof {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .avatars { display: flex; }
+    .avatars span {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      display: grid; place-items: center;
+      font-size: .7rem; font-weight: 700;
+      margin-left: -8px;
+    }
+    .avatars span:nth-child(1) { background: #8b5cf6; margin-left: 0; }
+    .avatars span:nth-child(2) { background: #ec4899; }
+    .avatars span:nth-child(3) { background: #f59e0b; }
+    .avatars span:nth-child(4) { background: #10b981; }
+    .proof-text { font-size: .85rem; color: var(--muted); }
+    .proof-text strong { color: var(--text); }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 6rem 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+    }
+    .features h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 3rem;
+      max-width: 500px;
+      line-height: 1.15;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .card:hover {
+      border-color: rgba(200,240,74,.3);
+      transform: translateY(-3px);
+    }
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      margin-bottom: .5rem;
+    }
+    .card p { color: var(--muted); font-size: .9rem; line-height: 1.55; }
+
+    /* ── CTA BOTTOM ── */
+    .cta-bottom {
+      padding: 5rem 1.5rem 7rem;
+      text-align: center;
+    }
+    .cta-bottom h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+    .cta-bottom p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+    .btn-outline {
+      display: inline-block;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: .85rem 2.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .btn-outline:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .3; }
+    }
+    @keyframes popIn {
+      from { transform: scale(.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Fluent<span>Flow</span></div>
+    <a href="#form">Quero minha vaga</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-inner">
+      <div class="badge">Turma com vagas limitadas</div>
+      <h1>Fale inglês com <em>confiança</em><br>em 90 dias</h1>
+      <p>Método direto ao ponto, sem decoreba. Aulas ao vivo, comunidade ativa e professores que já fizeram isso acontecer para mais de 8.000 alunos.</p>
+
+      <!-- FORM -->
+      <div class="form-wrap" id="form">
+        <h3>Garanta sua vaga gratuita</h3>
+        <p>Masterclass ao vivo — quinta-feira, 19h (horário de Brasília)</p>
+        <div class="form-row" id="form-fields">
+          <input type="text"  id="nome"  placeholder="Seu nome" autocomplete="off" />
+          <input type="email" id="email" placeholder="Seu melhor e-mail" autocomplete="off" />
+          <button class="btn-cta" id="btn-submit" onclick="handleSubmit()">
+            Quero participar →
+          </button>
+        </div>
+        <div class="success-msg" id="success">
+          <div class="check">✅</div>
+          <h4>Vaga garantida!</h4>
+          <p>Você receberá o link da masterclass no seu e-mail em breve.</p>
+        </div>
+        <p class="form-note">🔒 Sem spam. Você pode cancelar a qualquer momento.</p>
+      </div>
+
+      <!-- SOCIAL PROOF -->
+      <div class="proof">
+        <div class="avatars">
+          <span>M</span><span>A</span><span>R</span><span>+</span>
+        </div>
+        <p class="proof-text"><strong>+8.000 alunos</strong> já transformaram seu inglês</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-label">Por que funciona</p>
+    <h2>Tudo que você precisa para finalmente falar inglês</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>Método focado em fala</h3>
+        <p>Nada de gramática infinita. Você pratica conversação desde a primeira aula, com feedback em tempo real.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <h3>Aulas ao vivo 3x por semana</h3>
+        <p>Horários flexíveis, gravações disponíveis. Você não perde nada mesmo com agenda cheia.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Comunidade de prática</h3>
+        <p>Grupo exclusivo para praticar com outros alunos. Porque falar inglês exige parceiro de treino.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BOTTOM -->
+  <section class="cta-bottom">
+    <h2>Pronto para começar?</h2>
+    <p>A próxima turma começa em breve. Vagas limitadas.</p>
+    <a href="#form" class="btn-outline">Garantir minha vaga</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 FluentFlow. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    function handleSubmit() {
+      const nome  = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!nome || !email) {
+        alert('Por favor, preencha seu nome e e-mail.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Por favor, insira um e-mail válido.');
+        return;
+      }
+
+      // Aqui vai o push para o dataLayer (GTM) — Dia 2
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'lead_captured',
+        lead_name:  nome,
+        lead_email: email
+      });
+
+      // Aqui vai o fetch para o webhook do n8n — Dia 4
+      // fetch('SEU_WEBHOOK_N8N', { method: 'POST', ... })
+
+      document.getElementById('form-fields').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    }
+
+    // Scroll suave nos links internos
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
