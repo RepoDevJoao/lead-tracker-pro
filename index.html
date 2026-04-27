@@ -442,8 +442,11 @@
         lead_email: email
       });
 
-      // Aqui vai o fetch para o webhook do n8n — Dia 4
-      // fetch('SEU_WEBHOOK_N8N', { method: 'POST', ... })
+      fetch('https://joaovitorcoelho.app.n8n.cloud/webhook/lead-fluentflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email })
+      });
 
       document.getElementById('form-fields').style.display = 'none';
       document.getElementById('success').style.display = 'block';
